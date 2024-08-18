@@ -1,5 +1,6 @@
 "use client";
 import { useHexStore } from "@/stores/hexStore";
+import TryListItem from "@/components/hexcode/TryListItem";
 
 export default function TryList() {
   const { tryList } = useHexStore();
@@ -7,7 +8,7 @@ export default function TryList() {
   return (
     <>
       {/* 트라이 목록 */}
-      <table className={"table-auto divide-y w-full"}>
+      <table className={"w-full table-auto divide-y"}>
         <thead className={"text-left"}>
           <tr>
             <th className={"p-2"}>#</th>
@@ -19,21 +20,7 @@ export default function TryList() {
         </thead>
         <tbody className={"divide-y"}>
           {tryList.map((item) => (
-            <tr key={item.id} className={"even:bg-slate-50"}>
-              <td className={"p-2"}>{item.id}</td>
-              <td className={"p-2"}>
-                <div className={"flex items-center gap-3"}>
-                  <div
-                    className={"w-8 h-8 rounded-sm"}
-                    style={{ backgroundColor: item.hex }}
-                  />
-                  <p>{item.hex}</p>
-                </div>
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            <TryListItem key={item.id} {...item} />
           ))}
         </tbody>
       </table>

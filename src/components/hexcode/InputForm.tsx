@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useHexStore } from "@/stores/hexStore";
 
-type props = { colorCode: string };
-
-export default function InputForm({ colorCode }: props) {
+export default function InputForm() {
   const [guess, setGuess] = useState("");
   const { tryList, setTryList } = useHexStore();
 
@@ -17,22 +15,25 @@ export default function InputForm({ colorCode }: props) {
   const onFormSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // 새로고침 방지
 
-    setTryList({ id: tryList.length + 1, hex: `#${guess}` });
+    setTryList({ id: tryList.length + 1, hex: `#${guess.toUpperCase()}` });
     setGuess("");
     // 정답 비교
     // const comparison = new RegExp(answer, "gi").test(colorCode);
   };
 
   return (
-    <form className={"flex gap-2"} onSubmit={onFormSubmit}>
+    <form
+      className={"flex w-full justify-center gap-2"}
+      onSubmit={onFormSubmit}
+    >
       <div
         className={
-          "flex p-2 gap-2 rounded bg-white w-52 outline outline-1 outline-slate-300"
+          "flex gap-2 rounded bg-white p-2 outline outline-1 outline-slate-300 dark:bg-slate-400/50"
         }
       >
         <p>#</p>
         <input
-          className={"outline-none w-[100%]"}
+          className={"w-[100%] bg-transparent bg-none outline-none"}
           maxLength={6}
           value={guess}
           onChange={(e) => handleInputChange(e)}
@@ -40,7 +41,7 @@ export default function InputForm({ colorCode }: props) {
       </div>
       <button
         type={"submit"}
-        className={"bg-blue-500 hover:bg-blue-600 p-2 rounded"}
+        className={"rounded bg-blue-500 p-2 text-white hover:bg-blue-600"}
       >
         입력
       </button>

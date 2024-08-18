@@ -4,9 +4,21 @@ import { TTryData } from "@/types/try";
 type THexStore = {
   tryList: TTryData[];
   setTryList: (tryData: TTryData) => void;
+  colorCode: string;
+};
+
+const extractColor = () => {
+  let color = Math.floor(Math.random() * (16 ** 6 + 1)).toString(16);
+
+  while (color.length < 6) {
+    color = `0${color}`;
+  }
+
+  return `#${color}`;
 };
 
 export const useHexStore = create<THexStore>()((set) => ({
+  colorCode: extractColor(),
   tryList: [],
   setTryList: (tryData: TTryData) =>
     set((state) => {
