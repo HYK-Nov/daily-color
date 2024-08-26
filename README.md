@@ -7,3 +7,5 @@
 - Next.js
 - Tailwindcss
 - next-themes
+- Zustand
+- Supabase
