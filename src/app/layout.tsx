@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Nanum_Gothic } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
+const nanum = Nanum_Gothic({ subsets: ["latin"], weight: "700" });
 
 export const metadata: Metadata = {
   title: "Daily color",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={nanum.className} suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>

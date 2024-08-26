@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <header className={"flex items-center justify-between py-4"}>
-      <p className={"text-xl font-bold"}>Daily Color</p>
+      <p className={"cursor-pointer text-xl font-bold"}>Daily Color</p>
 
       {/* 다크/라이트 모드 전환 */}
       <div className={"flex"}>

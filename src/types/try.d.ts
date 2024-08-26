@@ -1,4 +1,7 @@
 export type TTryData = {
   id: number;
-  hex: string;
+  curHex: string;
+  red: string;
+  green: string;
+  blue: string;
 };

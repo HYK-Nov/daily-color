@@ -1,25 +1,18 @@
 "use client";
 import { TTryData } from "@/types/try";
-import { useHexStore } from "@/stores/hexStore";
 import {
   TbCircleFilled,
   TbTriangleFilled,
   TbTriangleInvertedFilled,
 } from "react-icons/tb";
 
-export default function TryListItem({ id, hex }: TTryData) {
-  const { colorCode } = useHexStore();
-  const answerData = {
-    red: parseInt(colorCode.slice(1, 3), 16),
-    green: parseInt(colorCode.slice(3, 5), 16),
-    blue: parseInt(colorCode.slice(5, 7), 16),
-  };
-  const tryData = {
-    red: parseInt(hex.slice(1, 3), 16),
-    green: parseInt(hex.slice(3, 5), 16),
-    blue: parseInt(hex.slice(5, 7), 16),
-  };
-
+export default function TryListItem({
+  id,
+  curHex,
+  red,
+  green,
+  blue,
+}: TTryData) {
   return (
     <tr key={id}>
       <td className={"p-2"}>{id}</td>
@@ -27,33 +20,33 @@ export default function TryListItem({ id, hex }: TTryData) {
         <div className={"flex items-center gap-3"}>
           <div
             className={"h-8 w-8 rounded-sm"}
-            style={{ backgroundColor: hex }}
+            style={{ backgroundColor: curHex }}
           />
-          <p>{hex}</p>
+          <p>{curHex}</p>
         </div>
       </td>
       <td>
-        {answerData.red > tryData.red ? (
+        {red === "up" ? (
           <TbTriangleFilled />
-        ) : answerData.red < tryData.red ? (
+        ) : red === "down" ? (
           <TbTriangleInvertedFilled />
         ) : (
           <TbCircleFilled />
         )}
       </td>
       <td>
-        {answerData.blue > tryData.blue ? (
+        {green === "up" ? (
           <TbTriangleFilled />
-        ) : answerData.blue < tryData.blue ? (
+        ) : green === "down" ? (
           <TbTriangleInvertedFilled />
         ) : (
           <TbCircleFilled />
         )}
       </td>
       <td>
-        {answerData.green > tryData.green ? (
+        {blue === "up" ? (
           <TbTriangleFilled />
-        ) : answerData.green < tryData.green ? (
+        ) : blue === "down" ? (
           <TbTriangleInvertedFilled />
         ) : (
           <TbCircleFilled />

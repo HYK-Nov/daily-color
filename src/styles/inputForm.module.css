@@ -1,0 +1,10 @@
+.colorPicker {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.3rem;
+}
+
+.colorPicker::-webkit-color-swatch {
+    border-radius: 0.3rem;
+}
