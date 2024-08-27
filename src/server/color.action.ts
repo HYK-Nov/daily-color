@@ -1,6 +1,6 @@
 "use server";
 import { createClient } from "@/utils/supabase/client";
-import { encryptService } from "@/utils/encryptService";
+import { encrypt } from "@/utils/encryptService";
 
 const supabase = createClient();
 
@@ -56,7 +56,8 @@ export async function getDailyColor() {
     if (error) console.error(error);
 
     if (data) {
-      return { ...data, color_code: encryptService(data.color_code) };
+      return { ...data, color_code: encrypt(data.color_code) };
+      // return data;
     } else {
       return {};
     }
