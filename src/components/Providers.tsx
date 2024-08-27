@@ -9,6 +9,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const [loaded, setLoaded] = useState(false);
   const {
     questionNum,
+    questionAnswer,
+    isSuccess,
     setQuestionNum,
     setQuestionAnswer,
     setTryList,
@@ -29,22 +31,26 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         if (questionNum !== data.question_number) {
           setQuestionNum(data.question_number);
           setTryList(null);
-        } else {
-          setIsSuccess(
-            tryList.some((tryData) =>
-              new RegExp(tryData.hex, "gi").test(data.color_code),
-            ),
-          );
         }
 
         setQuestionAnswer(data.color_code);
         JSON.parse(window.localStorage.getItem("try_list") || "[]").map(
           (item: TTryData) => setTryList(item),
         );
-        setSuccessCount(tryList.length);
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (!isSuccess && tryList.length > 0) {
+      setIsSuccess(
+        tryList.some((tryData) =>
+          new RegExp(tryData.hex, "gi").test(questionAnswer),
+        ),
+      );
+    }
+    setSuccessCount(tryList.length);
+  }, [questionAnswer]);
 
   return (
     <>
