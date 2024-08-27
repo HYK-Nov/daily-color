@@ -26,7 +26,8 @@ export const useHexStore = create<THexStore>()((set) => ({
   questionAnswer: "",
   lastQuestionNum: 0,
   tryList: getLocalTryList(),
-  successCount: 0,
+  successCount:
+    JSON.parse(window.localStorage.getItem("try_list") || "").length || 0,
 
   setIsSuccess: (match) => set({ isSuccess: match }),
   setQuestionAnswer: (color) => {

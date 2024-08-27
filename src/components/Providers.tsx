@@ -26,7 +26,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         setTryList(null);
       } else {
         setIsSuccess(
-          tryList.some((tryData) => tryData.hex === data.color_code),
+          tryList.some((tryData) =>
+            new RegExp(tryData.hex, "gi").test(data.color_code),
+          ),
         );
       }
 

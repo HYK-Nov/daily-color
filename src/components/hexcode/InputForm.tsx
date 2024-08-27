@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHexStore } from "@/stores/hexStore";
 import styles from "@/styles/inputForm.module.css";
 
@@ -27,11 +27,6 @@ export default function InputForm() {
   };
 
   const onSubmitForm = () => {
-    if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
-      setIsSuccess(true);
-      setSuccessCount(tryList.length);
-    }
-
     tryRed = parseInt(guess.slice(0, 2), 16);
     tryGreen = parseInt(guess.slice(2, 4), 16);
     tryBlue = parseInt(guess.slice(4, 6), 16);
@@ -43,10 +38,17 @@ export default function InputForm() {
       green: green > tryGreen ? "up" : green < tryGreen ? "down" : "equal",
       blue: blue > tryBlue ? "up" : blue < tryBlue ? "down" : "equal",
     });
-    window.localStorage.setItem("try_list", JSON.stringify(tryList));
-
     setGuess("");
+
+    if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
+      setIsSuccess(true);
+      setSuccessCount(tryList.length);
+    }
   };
+
+  useEffect(() => {
+    window.localStorage.setItem("try_list", JSON.stringify(tryList));
+  }, [tryList]);
 
   return (
     <form className={"flex w-full justify-center gap-2"} action={onSubmitForm}>
