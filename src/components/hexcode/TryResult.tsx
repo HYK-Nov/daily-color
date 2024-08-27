@@ -1,8 +1,14 @@
 "use client";
 import { useHexStore } from "@/stores/hexStore";
+import { useEffect } from "react";
 
 export default function TryResult() {
-  const { questionAnswer, isSuccess, successCount } = useHexStore();
+  const { tryList, questionAnswer, isSuccess, successCount, setSuccessCount } =
+    useHexStore();
+
+  useEffect(() => {
+    setSuccessCount(tryList.length);
+  }, [isSuccess]);
 
   return (
     <>

@@ -13,27 +13,35 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     setTryList,
     tryList,
     setIsSuccess,
+    setSuccessCount,
   } = useHexStore();
 
   useEffect(() => {
     setLoaded(true);
 
-    startTransition(async () => {
-      const data = await getDailyColor();
+    if (typeof window !== "undefined") {
+      startTransition(async () => {
+        const data = await getDailyColor();
 
-      if (questionNum !== data.question_number) {
-        setQuestionNum(data.question_number);
-        setTryList(null);
-      } else {
-        setIsSuccess(
-          tryList.some((tryData) =>
-            new RegExp(tryData.hex, "gi").test(data.color_code),
-          ),
-        );
-      }
+        setQuestionNum(Number(window.localStorage.getItem("questionNum")) || 0);
 
-      setQuestionAnswer(data.color_code);
-    });
+        if (questionNum !== data.question_number) {
+          setQuestionNum(data.question_number);
+          setTryList(null);
+        } else {
+          setIsSuccess(
+            tryList.some((tryData) =>
+              new RegExp(tryData.hex, "gi").test(data.color_code),
+            ),
+          );
+        }
+
+        setQuestionAnswer(data.color_code);
+        const list = window.localStorage.getItem("try_list");
+        list && setTryList(JSON.parse(list));
+        setSuccessCount(tryList.length);
+      });
+    }
   }, []);
 
   return (

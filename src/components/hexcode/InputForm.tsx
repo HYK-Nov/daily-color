@@ -42,12 +42,13 @@ export default function InputForm() {
 
     if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
       setIsSuccess(true);
-      setSuccessCount(tryList.length);
     }
   };
 
   useEffect(() => {
-    window.localStorage.setItem("try_list", JSON.stringify(tryList));
+    if (tryList.length > 0) {
+      window.localStorage.setItem("try_list", JSON.stringify(tryList));
+    }
   }, [tryList]);
 
   return (

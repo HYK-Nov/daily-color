@@ -15,19 +15,35 @@ type THexStore = {
   setSuccessCount: (count: number) => void;
 };
 
+const getQuestionNum = () => {
+  if (typeof window !== "undefined") {
+    return Number(window.localStorage.getItem("questionNum")) || 0;
+  }
+  return 0;
+};
+
 const getLocalTryList = () => {
-  const localTryList = window.localStorage.getItem("try_list");
-  return localTryList ? JSON.parse(localTryList || "") : [];
+  if (typeof window !== "undefined") {
+    const localTryList = window.localStorage.getItem("try-list");
+    return localTryList ? JSON.parse(localTryList) : [];
+  }
+  return [];
+};
+
+const getSuccessCount = () => {
+  if (typeof window !== "undefined") {
+    return JSON.parse(window.localStorage.getItem("try-list") || "").length;
+  }
+  return 0;
 };
 
 export const useHexStore = create<THexStore>()((set) => ({
   isSuccess: false,
-  questionNum: Number(window.localStorage.getItem("question_number")) || 0,
+  questionNum: 0,
   questionAnswer: "",
   lastQuestionNum: 0,
-  tryList: getLocalTryList(),
-  successCount:
-    JSON.parse(window.localStorage.getItem("try_list") || "").length || 0,
+  tryList: [],
+  successCount: 0,
 
   setIsSuccess: (match) => set({ isSuccess: match }),
   setQuestionAnswer: (color) => {
