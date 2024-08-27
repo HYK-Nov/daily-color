@@ -1,6 +1,6 @@
 export type TTryData = {
   id: number;
-  curHex: string;
+  hex: string;
   red: string;
   green: string;
   blue: string;

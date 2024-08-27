@@ -1,36 +1,24 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import React, { useState } from "react";
 import { useHexStore } from "@/stores/hexStore";
 import styles from "@/styles/inputForm.module.css";
-import { tryHex } from "@/server/color.action";
 
 export default function InputForm() {
   const [guess, setGuess] = useState("");
-  const { isSuccess, tryList, setTryList, setIsSuccess, setAnswer } =
-    useHexStore();
-  const [state, formAction] = useFormState(tryHex, {
-    curHex: "",
-    match: false,
-    red: "",
-    green: "",
-    blue: "",
-  });
-
-  useEffect(() => {
-    if (guess) {
-      setGuess("");
-      setTryList({
-        id: tryList.length + 1,
-        ...state,
-      });
-
-      if (state.match && !isSuccess) {
-        setIsSuccess(true);
-        setAnswer(state.curHex);
-      }
-    }
-  }, [state]);
+  const {
+    isSuccess,
+    tryList,
+    questionAnswer,
+    setTryList,
+    setIsSuccess,
+    setSuccessCount,
+  } = useHexStore();
+  const [red, green, blue] = [
+    parseInt(questionAnswer.slice(0, 2), 16),
+    parseInt(questionAnswer.slice(2, 4), 16),
+    parseInt(questionAnswer.slice(4, 6), 16),
+  ];
+  let tryRed, tryGreen, tryBlue;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (/^[A-Fa-f0-9]*$/.test(e.target.value)) {
@@ -38,11 +26,33 @@ export default function InputForm() {
     }
   };
 
+  const onSubmitForm = () => {
+    if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
+      setIsSuccess(true);
+      setSuccessCount(tryList.length);
+    }
+
+    tryRed = parseInt(guess.slice(0, 2), 16);
+    tryGreen = parseInt(guess.slice(2, 4), 16);
+    tryBlue = parseInt(guess.slice(4, 6), 16);
+
+    setTryList({
+      id: tryList.length + 1,
+      hex: guess,
+      red: red > tryRed ? "up" : red < tryRed ? "down" : "equal",
+      green: green > tryGreen ? "up" : green < tryGreen ? "down" : "equal",
+      blue: blue > tryBlue ? "up" : blue < tryBlue ? "down" : "equal",
+    });
+    window.localStorage.setItem("try_list", JSON.stringify(tryList));
+
+    setGuess("");
+  };
+
   return (
-    <form className={"flex w-full justify-center gap-2"} action={formAction}>
+    <form className={"flex w-full justify-center gap-2"} action={onSubmitForm}>
       <div
         className={
-          "flex h-max flex-auto gap-2 rounded border border-2 border-slate-300 bg-white p-2 focus-within:border-2 focus-within:border-blue-500 dark:bg-slate-400/50"
+          "flex h-max flex-auto gap-2 rounded border-2 border-slate-300 bg-white p-2 focus-within:border-2 focus-within:border-blue-500 dark:bg-slate-400/50"
         }
       >
         <label className={"pl-1"}>#</label>
@@ -52,10 +62,10 @@ export default function InputForm() {
           minLength={6}
           maxLength={6}
           value={guess}
-          onChange={(e) => handleInputChange(e)}
+          onChange={handleInputChange}
+          required={true}
         />
       </div>
-      <input className={"hidden"} name={"questionNum"} value={1} />
       <input
         type={"color"}
         value={`#${guess}`}

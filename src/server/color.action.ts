@@ -47,3 +47,20 @@ export async function tryHex(
     return { curHex: "", match: false, red: "", green: "", blue: "" };
   }
 }
+
+export async function getDailyColor() {
+  try {
+    const { data, error } = await supabase.rpc("get_daily_color");
+
+    if (error) console.error(error);
+
+    if (data) {
+      // return JSON.stringify(data);
+      return data;
+    } else {
+      return {};
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}

@@ -2,7 +2,7 @@
 import { useHexStore } from "@/stores/hexStore";
 
 export default function TryResult() {
-  const { tryList, answer, isSuccess } = useHexStore();
+  const { questionAnswer, isSuccess, successCount } = useHexStore();
 
   return (
     <>
@@ -12,8 +12,8 @@ export default function TryResult() {
             "flex w-full flex-col gap-3 rounded-md bg-slate-400/20 p-5"
           }
         >
-          <p>정답: {answer.toUpperCase()}</p>
-          <p>총 시도 횟수: {tryList.length}</p>
+          <p>정답: #{questionAnswer.toUpperCase()}</p>
+          <p>시도 횟수: {successCount}</p>
         </div>
       )}
     </>
