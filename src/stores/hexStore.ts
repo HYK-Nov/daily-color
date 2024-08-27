@@ -15,28 +15,6 @@ type THexStore = {
   setSuccessCount: (count: number) => void;
 };
 
-const getQuestionNum = () => {
-  if (typeof window !== "undefined") {
-    return Number(window.localStorage.getItem("questionNum")) || 0;
-  }
-  return 0;
-};
-
-const getLocalTryList = () => {
-  if (typeof window !== "undefined") {
-    const localTryList = window.localStorage.getItem("try-list");
-    return localTryList ? JSON.parse(localTryList) : [];
-  }
-  return [];
-};
-
-const getSuccessCount = () => {
-  if (typeof window !== "undefined") {
-    return JSON.parse(window.localStorage.getItem("try-list") || "").length;
-  }
-  return 0;
-};
-
 export const useHexStore = create<THexStore>()((set) => ({
   isSuccess: false,
   questionNum: 0,

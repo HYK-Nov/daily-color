@@ -5,14 +5,8 @@ import styles from "@/styles/inputForm.module.css";
 
 export default function InputForm() {
   const [guess, setGuess] = useState("");
-  const {
-    isSuccess,
-    tryList,
-    questionAnswer,
-    setTryList,
-    setIsSuccess,
-    setSuccessCount,
-  } = useHexStore();
+  const { isSuccess, tryList, questionAnswer, setTryList, setIsSuccess } =
+    useHexStore();
   const [red, green, blue] = [
     parseInt(questionAnswer.slice(0, 2), 16),
     parseInt(questionAnswer.slice(2, 4), 16),
@@ -71,7 +65,7 @@ export default function InputForm() {
       </div>
       <input
         type={"color"}
-        value={`#${guess}`}
+        value={`#${guess.length === 6 ? guess : "000000"}`}
         onChange={(e) => setGuess(e.target.value.slice(1, 7))}
         className={`${styles.colorPicker} h-auto`}
       />

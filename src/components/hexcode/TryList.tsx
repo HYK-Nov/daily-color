@@ -19,8 +19,8 @@ export default function TryList() {
           </tr>
         </thead>
         <tbody className={"divide-y"}>
-          {tryList &&
-            tryList.map((item) => <TryListItem key={item.id} {...item} />)}
+          {tryList.length > 0 &&
+            tryList.map((item, index) => <TryListItem key={index} {...item} />)}
         </tbody>
       </table>
     </>
