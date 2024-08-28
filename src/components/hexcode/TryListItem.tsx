@@ -26,10 +26,16 @@ export default function TryListItem({ id, hex, red, green, blue }: TTryData) {
                 className={"h-8 w-8 rounded-sm"}
                 style={{ backgroundColor: `#${hex}` }}
               />
-              <p>#{hex.toUpperCase()}</p>
-              <p>
-                ({tryRed}, {tryGreen}, {tryBlue})
-              </p>
+              <div
+                className={
+                  "grid w-full auto-rows-auto grid-cols-1 items-center sm:grid-cols-[30%_100%]"
+                }
+              >
+                <p className={""}>#{hex.toUpperCase()}</p>
+                <p className={"text-xs sm:text-base"}>
+                  ({tryRed}, {tryGreen}, {tryBlue})
+                </p>
+              </div>
             </div>
           </td>
           <td>
