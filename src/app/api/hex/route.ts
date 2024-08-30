@@ -1,5 +1,6 @@
 import { encrypt } from "@/utils/encryptService";
 import { createClient } from "@/utils/supabase/client";
+import { NextResponse } from "next/server";
 
 const supabase = createClient();
 
@@ -9,11 +10,14 @@ export async function GET() {
 
     if (error) console.error(error);
 
-    if (data) {
-      return Response.json({ ...data, color_code: encrypt(data.color_code) });
-    } else {
-      return {};
+    if (!data) {
+      return NextResponse.json({}, { status: 404 });
     }
+
+    return NextResponse.json({
+      ...data,
+      color_code: encrypt(data.color_code),
+    });
   } catch (e) {
     console.error(e);
   }
