@@ -5,8 +5,16 @@ import styles from "@/styles/inputForm.module.css";
 
 export default function InputForm() {
   const [guess, setGuess] = useState("");
-  const { isSuccess, tryList, questionAnswer, setTryList, setIsSuccess } =
-    useHexStore();
+  const {
+    isSuccess,
+    tryList,
+    questionNum,
+    questionAnswer,
+    successCount,
+    setTryList,
+    setIsSuccess,
+    setSuccessCount,
+  } = useHexStore();
   const [red, green, blue] = [
     parseInt(questionAnswer.slice(0, 2), 16),
     parseInt(questionAnswer.slice(2, 4), 16),
@@ -36,6 +44,15 @@ export default function InputForm() {
 
     if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
       setIsSuccess(true);
+      setSuccessCount(tryList.length + 1);
+
+      window.localStorage.setItem(
+        "last_record",
+        JSON.stringify({
+          last_question_number: questionNum,
+          success_count: tryList.length + 1,
+        }),
+      );
     }
   };
 

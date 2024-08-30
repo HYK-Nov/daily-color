@@ -6,10 +6,6 @@ export default function TryResult() {
   const { tryList, questionAnswer, isSuccess, successCount, setSuccessCount } =
     useHexStore();
 
-  useEffect(() => {
-    setSuccessCount(tryList.length);
-  }, [isSuccess]);
-
   return (
     <>
       {isSuccess && (

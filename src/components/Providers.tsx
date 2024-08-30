@@ -1,7 +1,6 @@
 "use client";
 import { ThemeProvider } from "next-themes";
 import { startTransition, useEffect, useState } from "react";
-import { getDailyColor } from "@/server/color.action";
 import { useHexStore } from "@/stores/hexStore";
 import { TTryData } from "@/types/try";
 import { decrypt } from "@/utils/encryptService";
@@ -23,34 +22,41 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setLoaded(true);
 
-    if (typeof window !== "undefined") {
-      startTransition(async () => {
-        const data = await getDailyColor();
+    if (typeof window === "undefined") return;
 
-        setQuestionNum(Number(window.localStorage.getItem("questionNum")) || 0);
+    startTransition(async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/hex`,
+      ).then((res) => res.json());
 
-        if (questionNum !== data.question_number) {
-          setQuestionNum(data.question_number);
-          setTryList(null);
-        }
+      const curNum = Number(
+        window.localStorage.getItem("question_number") || 0,
+      );
 
-        setQuestionAnswer(decrypt(data.color_code) || "");
-        JSON.parse(window.localStorage.getItem("try_list") || "[]").map(
+      if (curNum !== response.question_number) {
+        setQuestionNum(response.question_number);
+        setTryList(null);
+        window.localStorage.removeItem("try_list");
+      } else {
+        setQuestionNum(curNum);
+        JSON.parse(window.localStorage.getItem("try_list") || "[]").forEach(
           (item: TTryData) => setTryList(item),
         );
-      });
-    }
+      }
+
+      setQuestionAnswer(decrypt(response.color_code) || "");
+    });
   }, []);
 
   useEffect(() => {
-    if (!isSuccess && tryList.length > 0) {
-      setIsSuccess(
-        tryList.some((tryData) =>
-          new RegExp(tryData.hex, "gi").test(questionAnswer),
-        ),
-      );
+    const lastRecord = JSON.parse(
+      window.localStorage.getItem("last_record") || "{}",
+    );
+
+    if (lastRecord && lastRecord.last_question_number === questionNum) {
+      setIsSuccess(true);
+      setSuccessCount(lastRecord.success_count);
     }
-    setSuccessCount(tryList.length);
   }, [questionAnswer]);
 
   return (
