@@ -35,13 +35,15 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
       if (curNum !== response.question_number) {
         setQuestionNum(response.question_number);
-        setTryList(null);
         window.localStorage.removeItem("try_list");
       } else {
         setQuestionNum(curNum);
-        JSON.parse(window.localStorage.getItem("try_list") || "[]").forEach(
-          (item: TTryData) => setTryList(item),
-        );
+
+        JSON.parse(window.localStorage.getItem("try_list") || "[]")
+          .reverse()
+          .forEach((item: TTryData) => {
+            setTryList(item);
+          });
       }
 
       setQuestionAnswer(decrypt(response.color_code) || "");

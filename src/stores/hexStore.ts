@@ -11,7 +11,7 @@ type THexStore = {
   setIsSuccess: (match: boolean) => void;
   setQuestionAnswer: (color: string) => void;
   setQuestionNum: (num: number) => void;
-  setTryList: (tryData: TTryData | null) => void;
+  setTryList: (tryData: TTryData) => void;
   setSuccessCount: (count: number) => void;
 };
 
@@ -31,13 +31,8 @@ export const useHexStore = create<THexStore>()((set) => ({
     window.localStorage.setItem("question_number", num.toString());
     set({ questionNum: num });
   },
-  setTryList: (tryData: TTryData | null) =>
+  setTryList: (tryData: TTryData) =>
     set((state) => {
-      // 초기화
-      if (tryData === null) {
-        return { tryList: [] };
-      }
-
       if (state.tryList.some((value) => value.hex === tryData.hex)) {
         return {
           tryList: [
