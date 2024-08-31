@@ -10,7 +10,6 @@ export default function InputForm() {
     tryList,
     questionNum,
     questionAnswer,
-    successCount,
     setTryList,
     setIsSuccess,
     setSuccessCount,

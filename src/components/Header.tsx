@@ -13,7 +13,7 @@ export default function Header() {
       <div
         className={"flex cursor-pointer justify-center gap-2 text-xl font-bold"}
       >
-        <p className={""}>Daily Color</p>
+        <p>Daily Color</p>
         <p>#{questionNum}</p>
       </div>
 
