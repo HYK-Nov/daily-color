@@ -20,11 +20,11 @@
 - ▲ : 정답 값이 더 높음
 - ▼ : 정답 값이 더 낮음
 
-## Color Picker
+### Color Picker
 
 ![image](https://github.com/user-attachments/assets/a73fd589-d1f4-4638-ae90-d3ae1b514cfd)
 
-hex 코드가 익숙하지 않은 분을 위한 컬러 피커
+컬러 피커를 통해 hex 코드가 익숙하지 않은 분들도 시도할 수 있습니다.
 
 ## 기술 스택
 
