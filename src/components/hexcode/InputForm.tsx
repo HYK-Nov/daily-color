@@ -13,6 +13,7 @@ export default function InputForm() {
     setTryList,
     setIsSuccess,
     setSuccessCount,
+    setTotalCurrectCount,
   } = useHexStore();
   const [red, green, blue] = [
     parseInt(questionAnswer.slice(0, 2), 16),
@@ -27,7 +28,14 @@ export default function InputForm() {
     }
   };
 
-  const onSubmitForm = () => {
+  const updateTotalCurrectCount = async () => {
+    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hex`, {
+      method: "POST",
+      body: JSON.stringify({ question_number: questionNum }),
+    }).then((res) => res.json());
+  };
+
+  const onSubmitForm = async () => {
     tryRed = parseInt(guess.slice(0, 2), 16);
     tryGreen = parseInt(guess.slice(2, 4), 16);
     tryBlue = parseInt(guess.slice(4, 6), 16);
@@ -52,6 +60,14 @@ export default function InputForm() {
           success_count: tryList.length + 1,
         }),
       );
+
+      try {
+        await updateTotalCurrectCount().then((res) =>
+          setTotalCurrectCount(res.total_correct_count),
+        );
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 

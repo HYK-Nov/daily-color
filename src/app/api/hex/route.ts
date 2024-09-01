@@ -1,6 +1,6 @@
 import { encrypt } from "@/utils/encryptService";
 import { createClient } from "@/utils/supabase/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const supabase = createClient();
 
@@ -18,6 +18,30 @@ export async function GET() {
       ...data,
       color_code: encrypt(data.color_code),
     });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function POST(req: NextRequest) {
+  const { question_number } = await req.json();
+
+  try {
+    const { data, error } = await supabase.rpc(
+      "increment_total_correct_count",
+      {
+        today_id: Number(question_number),
+      },
+    );
+
+    if (error) console.error(error);
+    if (!data) {
+      return NextResponse.json({}, { status: 404 });
+    }
+
+    console.log(data);
+
+    return NextResponse.json(data, { status: 200 });
   } catch (e) {
     console.error(e);
   }

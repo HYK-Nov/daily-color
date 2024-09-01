@@ -5,19 +5,32 @@ import { useHexStore } from "@/stores/hexStore";
 import { TTryData } from "@/types/try";
 import { decrypt } from "@/utils/encryptService";
 
+export const revalidate = 60;
+
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [loaded, setLoaded] = useState(false);
   const {
     questionNum,
     questionAnswer,
-    isSuccess,
     setQuestionNum,
     setQuestionAnswer,
     setTryList,
-    tryList,
     setIsSuccess,
     setSuccessCount,
+    setTotalCurrectCount,
   } = useHexStore();
+
+  const getTotalCurrectCount = async (curNum: number) => {
+    return await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/hex/total-correct`,
+      {
+        method: "POST",
+        body: JSON.stringify({ question_number: curNum }),
+      },
+    )
+      .then((res) => res.json())
+      .then((res) => res.total_correct_count);
+  };
 
   useEffect(() => {
     setLoaded(true);
@@ -58,6 +71,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     if (lastRecord && lastRecord.last_question_number === questionNum) {
       setIsSuccess(true);
       setSuccessCount(lastRecord.success_count);
+
+      getTotalCurrectCount(questionNum).then((res) =>
+        setTotalCurrectCount(res),
+      );
     }
   }, [questionAnswer]);
 

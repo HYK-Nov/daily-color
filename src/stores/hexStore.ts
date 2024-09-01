@@ -7,12 +7,14 @@ type THexStore = {
   questionNum: number;
   lastQuestionNum: number;
   tryList: TTryData[];
+  totalCurrectCount: number;
   successCount: number;
   setIsSuccess: (match: boolean) => void;
   setQuestionAnswer: (color: string) => void;
   setQuestionNum: (num: number) => void;
   setTryList: (tryData: TTryData) => void;
   setSuccessCount: (count: number) => void;
+  setTotalCurrectCount: (count: number) => void;
 };
 
 export const useHexStore = create<THexStore>()((set) => ({
@@ -22,6 +24,7 @@ export const useHexStore = create<THexStore>()((set) => ({
   lastQuestionNum: 0,
   tryList: [],
   successCount: 0,
+  totalCurrectCount: 0,
 
   setIsSuccess: (match) => set({ isSuccess: match }),
   setQuestionAnswer: (color) => {
@@ -44,4 +47,5 @@ export const useHexStore = create<THexStore>()((set) => ({
       return { tryList: [tryData, ...state.tryList] };
     }),
   setSuccessCount: (count: number) => set({ successCount: count }),
+  setTotalCurrectCount: (count: number) => set({ totalCurrectCount: count }),
 }));
