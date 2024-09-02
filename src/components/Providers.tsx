@@ -1,9 +1,10 @@
 "use client";
 import { ThemeProvider } from "next-themes";
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, Suspense, useEffect, useState } from "react";
 import { useHexStore } from "@/stores/hexStore";
 import { TTryData } from "@/types/try";
 import { decrypt } from "@/utils/encryptService";
+import { TbLoader2 } from "react-icons/tb";
 
 export const revalidate = 60;
 
@@ -75,7 +76,17 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {loaded && <ThemeProvider attribute={"class"}>{children}</ThemeProvider>}
+      <Suspense
+        fallback={
+          <div className={"bg-white/10 dark:bg-slate-900/10"}>
+            <TbLoader2 className={"animate-spin text-teal-600"} />
+          </div>
+        }
+      >
+        {loaded && (
+          <ThemeProvider attribute={"class"}>{children}</ThemeProvider>
+        )}
+      </Suspense>
     </>
   );
 }
