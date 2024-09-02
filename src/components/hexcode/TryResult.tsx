@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { TbMaximize, TbMinimize } from "react-icons/tb";
 import { getRGBValues } from "@/utils/getRGBValues";
 import { useHexStore } from "@/components/StoreProvider";
@@ -16,7 +16,7 @@ export default function TryResult() {
   const RGB = getRGBValues(questionAnswer);
 
   return (
-    <>
+    <Suspense fallback={<></>}>
       {isSuccess && (
         <div
           className={
@@ -67,6 +67,6 @@ export default function TryResult() {
           )}
         </div>
       )}
-    </>
+    </Suspense>
   );
 }

@@ -11,6 +11,18 @@ type THexPage = {
   data: { color_code: string; question_number: number; type: string };
 };
 
+const getTotalCurrectCount = async (curNum: number) => {
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/hex-code/total-correct`,
+    {
+      method: "POST",
+      body: JSON.stringify({ question_number: curNum }),
+    },
+  )
+    .then((res) => res.json())
+    .then((res) => res.total_correct_count);
+};
+
 export default function HexPage({ data }: THexPage) {
   const {
     setQuestionNum,
@@ -22,18 +34,6 @@ export default function HexPage({ data }: THexPage) {
     setTotalCurrectCount,
     questionAnswer,
   } = useHexStore((state) => state);
-
-  const getTotalCurrectCount = async (curNum: number) => {
-    return await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/hex-code/total-correct`,
-      {
-        method: "POST",
-        body: JSON.stringify({ question_number: curNum }),
-      },
-    )
-      .then((res) => res.json())
-      .then((res) => res.total_correct_count);
-  };
 
   useEffect(() => {
     const curNum = Number(window.localStorage.getItem("question_number") || 0);
@@ -68,5 +68,14 @@ export default function HexPage({ data }: THexPage) {
     }
   }, [questionAnswer]);
 
-  return <></>;
+  return (
+    <main className={"flex w-full flex-col items-center gap-5 pb-10 pt-3"}>
+      {/* 정답 시, 등장 */}
+      <TryResult />
+      {/* 입력 폼 */}
+      <InputForm />
+      {/*<InputForm />*/}
+      <TryList />
+    </main>
+  );
 }

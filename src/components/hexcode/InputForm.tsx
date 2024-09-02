@@ -50,23 +50,23 @@ export default function InputForm(this: any) {
       setGuess("");
 
       if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
-        setIsSuccess(true);
-        setSuccessCount(tryList.length + 1);
-
-        window.localStorage.setItem(
-          "last_record",
-          JSON.stringify({
-            last_question_number: questionNum,
-            success_count: tryList.length + 1,
-          }),
-        );
-
         try {
           await updateTotalCurrectCount().then((res) =>
             setTotalCurrectCount(res),
           );
         } catch (error) {
           console.error(error);
+        } finally {
+          setIsSuccess(true);
+          setSuccessCount(tryList.length + 1);
+
+          window.localStorage.setItem(
+            "last_record",
+            JSON.stringify({
+              last_question_number: questionNum,
+              success_count: tryList.length + 1,
+            }),
+          );
         }
       }
     }
