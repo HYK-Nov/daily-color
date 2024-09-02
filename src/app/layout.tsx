@@ -4,7 +4,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
-const nanum = Nanum_Gothic({ subsets: ["latin"], weight: "700" });
+const nanum = Nanum_Gothic({ subsets: ["latin"], weight: ["700", "400"] });
 
 export const metadata: Metadata = {
   title: "Daily color",

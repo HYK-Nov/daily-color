@@ -14,12 +14,9 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) console.error(error);
-
     if (!data) {
       return NextResponse.json({}, { status: 404 });
     }
-
-    console.log(data);
 
     return NextResponse.json(data, { status: 200 });
   } catch (e) {

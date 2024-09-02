@@ -13,12 +13,24 @@ export default function TryResult() {
         {isSuccess && (
           <div
             className={
-              "flex w-full flex-col gap-3 rounded-md bg-slate-400/20 p-5"
+              "flex w-full flex-col gap-3 rounded-md border border-teal-500 bg-teal-100/10 p-5 dark:bg-teal-800/20"
             }
           >
-            <p>정답: #{questionAnswer.toUpperCase()}</p>
-            <p>시도 횟수: {successCount}</p>
-            <p>오늘 맞춘 사람: {totalCurrectCount}명</p>
+            <p className={"font-bold"}>정답: #{questionAnswer.toUpperCase()}</p>
+            <div
+              className={"h-10 w-1/4 rounded-lg"}
+              style={{ backgroundColor: `#${questionAnswer}` }}
+            />
+            <div className={"grid grid-cols-2"}>
+              <div>
+                <p>시도 횟수</p>
+                <p className={"text-2xl font-bold"}>{successCount}회</p>
+              </div>
+              <div>
+                <p>오늘 정답자</p>
+                <p className={"text-2xl font-bold"}>{totalCurrectCount}명</p>
+              </div>
+            </div>
           </div>
         )}
       </Suspense>

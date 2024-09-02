@@ -11,7 +11,7 @@ export default function TryList() {
       <table className={"w-full table-auto divide-y"}>
         <thead className={"text-left"}>
           <tr>
-            <th className={"p-2"}>#</th>
+            <th className={"p-2"}>No</th>
             <th className={"p-2"}>코드</th>
             <th className={"p-2"}>R</th>
             <th className={"p-2"}>G</th>

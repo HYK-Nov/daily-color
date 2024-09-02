@@ -24,22 +24,18 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const { question_number } = await req.json();
+  const { today_id } = await req.json();
 
   try {
     const { data, error } = await supabase.rpc(
       "increment_total_correct_count",
-      {
-        today_id: Number(question_number),
-      },
+      { today_id },
     );
 
     if (error) console.error(error);
     if (!data) {
       return NextResponse.json({}, { status: 404 });
     }
-
-    console.log(data);
 
     return NextResponse.json(data, { status: 200 });
   } catch (e) {

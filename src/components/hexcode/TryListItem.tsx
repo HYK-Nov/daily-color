@@ -19,13 +19,15 @@ export default function TryListItem({ id, hex, red, green, blue }: TTryData) {
     <>
       {hex && (
         <tr key={id} className={"cursor-pointer"}>
-          <td className={"p-2"}>{id}</td>
+          <td className={"flex items-center justify-between p-2"}>
+            <p>{id}</p>
+            <div
+              className={"h-7 w-7 rounded-sm"}
+              style={{ backgroundColor: `#${hex}` }}
+            />
+          </td>
           <td className={"p-2"}>
             <div className={"flex items-center gap-3"}>
-              <div
-                className={"h-8 w-8 rounded-sm"}
-                style={{ backgroundColor: `#${hex}` }}
-              />
               <div
                 className={
                   "grid w-full auto-rows-auto grid-cols-1 items-center sm:grid-cols-[30%_100%]"

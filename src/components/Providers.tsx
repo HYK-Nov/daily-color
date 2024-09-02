@@ -21,13 +21,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   } = useHexStore();
 
   const getTotalCurrectCount = async (curNum: number) => {
-    return await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/hex/total-correct`,
-      {
-        method: "POST",
-        body: JSON.stringify({ question_number: curNum }),
-      },
-    )
+    return await fetch("/api/hex-code/total-correct", {
+      method: "POST",
+      body: JSON.stringify({ question_number: curNum }),
+    })
       .then((res) => res.json())
       .then((res) => res.total_correct_count);
   };
@@ -38,9 +35,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     if (typeof window === "undefined") return;
 
     startTransition(async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/hex`,
-      ).then((res) => res.json());
+      const response = await fetch("/api/hex-code").then((res) => res.json());
 
       const curNum = Number(
         window.localStorage.getItem("question_number") || 0,

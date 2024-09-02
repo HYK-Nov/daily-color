@@ -5,7 +5,7 @@ type props = { children: ReactNode };
 
 export default function HexCodeLayout({ children }: props) {
   return (
-    <div className={"min-h-screen bg-white dark:bg-slate-700"}>
+    <div className={"min-h-screen bg-white dark:bg-slate-800"}>
       <div className={"container mx-auto max-w-3xl"}>
         <Header />
         {children}

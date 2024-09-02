@@ -29,9 +29,9 @@ export default function InputForm() {
   };
 
   const updateTotalCurrectCount = async () => {
-    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hex`, {
+    return await fetch("/api/hex-code", {
       method: "POST",
-      body: JSON.stringify({ question_number: questionNum }),
+      body: JSON.stringify({ today_id: questionNum }),
     }).then((res) => res.json());
   };
 
@@ -63,7 +63,7 @@ export default function InputForm() {
 
       try {
         await updateTotalCurrectCount().then((res) =>
-          setTotalCurrectCount(res.total_correct_count),
+          setTotalCurrectCount(res),
         );
       } catch (error) {
         console.error(error);
@@ -81,7 +81,7 @@ export default function InputForm() {
     <form className={"flex w-full justify-center gap-2"} action={onSubmitForm}>
       <div
         className={
-          "flex h-max flex-auto gap-2 rounded border-2 border-slate-300 bg-white p-2 focus-within:border-2 focus-within:border-blue-500 dark:bg-slate-400/50"
+          "flex h-max flex-auto gap-2 rounded border-2 border-slate-500/20 bg-white p-2 focus-within:border-2 focus-within:border-teal-500 dark:border-slate-500/40 dark:bg-slate-700/50 dark:focus-within:border-teal-500"
         }
       >
         <label className={"pl-1"}>#</label>
@@ -103,7 +103,7 @@ export default function InputForm() {
       />
       <button
         type={"submit"}
-        className={"rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"}
+        className={"rounded bg-teal-500 px-4 py-2 text-white hover:bg-teal-600"}
       >
         입력
       </button>
