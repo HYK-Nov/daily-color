@@ -3,12 +3,12 @@ import { TbCircleCheckFilled, TbX } from "react-icons/tb";
 import { useToastStore } from "@/stores/toastStore";
 import { useEffect, useState } from "react";
 
-type TAlert = {
+type TToast = {
   children: React.ReactNode;
   id: string;
 } & React.ComponentProps<"div">;
 
-export default function Alert({ children, id, ...rest }: TAlert) {
+export default function Toast({ children, id, ...rest }: TToast) {
   const successStyle = "text-green-700 border-green-600";
   const { deleteToastList } = useToastStore();
   const [loaded, setLoaded] = useState(true);
@@ -20,7 +20,7 @@ export default function Alert({ children, id, ...rest }: TAlert) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(false);
-      setTimeout(() => deleteToastList(id), 300); // fadeOut 시간 후에 onClose 호출
+      setTimeout(() => deleteToastList(id), 300); // fadeOut 시간 후에 토스트 사라짐
     }, 2000); // 토스트가 보이는 시간
 
     return () => clearTimeout(timer);

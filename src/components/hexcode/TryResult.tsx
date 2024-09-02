@@ -24,7 +24,12 @@ export default function TryResult() {
           }
         >
           <div className={"flex items-center justify-between"}>
-            <p className={"text-2xl font-bold"}>오늘의 색상 #{questionNum}</p>
+            <div className={"flex gap-3 text-2xl font-bold"}>
+              <p>오늘의 색상 #{questionNum}</p>
+              <p>
+                <span className={"text-teal-500"}>정답</span>!
+              </p>
+            </div>
             <button
               onClick={() => setIsClosed((prev) => !prev)}
               className={
@@ -59,7 +64,7 @@ export default function TryResult() {
                   <p className={"text-2xl font-bold"}>{successCount}회</p>
                 </div>
                 <div>
-                  <p>오늘 정답자</p>
+                  <p>정답 인원</p>
                   <p className={"text-2xl font-bold"}>{totalCurrectCount}명</p>
                 </div>
               </div>

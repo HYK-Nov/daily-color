@@ -8,11 +8,11 @@ import { useToastStore } from "@/stores/toastStore";
 
 export default function TryListItem({ id, hex, red, green, blue }: TTryData) {
   const RGB = getRGBValues(hex);
-  const { pushToastList, popToastList } = useToastStore();
+  const { pushToastList } = useToastStore();
 
   const handleClick = () => {
     copyToClipboard(hex.toUpperCase());
-    pushToastList("복사했습니다!");
+    pushToastList("복사되었습니다!");
   };
 
   return (
