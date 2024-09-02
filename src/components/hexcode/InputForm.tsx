@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHexStore } from "@/stores/hexStore";
 import styles from "@/styles/inputForm.module.css";
 import { getRGBValues } from "@/utils/getRGBValues";
@@ -21,7 +21,6 @@ export default function InputForm(this: any) {
     parseInt(questionAnswer.slice(2, 4), 16),
     parseInt(questionAnswer.slice(4, 6), 16),
   ];
-  let tryRed, tryGreen, tryBlue;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (/^[A-Fa-f0-9]*$/.test(e.target.value)) {

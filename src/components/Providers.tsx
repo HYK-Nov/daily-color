@@ -5,6 +5,7 @@ import { useHexStore } from "@/stores/hexStore";
 import { TTryData } from "@/types/try";
 import { decrypt } from "@/utils/encryptService";
 import { TbLoader2 } from "react-icons/tb";
+import Loading from "@/components/Loading";
 
 export const revalidate = 60;
 
@@ -76,21 +77,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div
-            className={
-              "relative h-full w-full bg-white/10 dark:bg-slate-900/10"
-            }
-          >
-            <TbLoader2
-              className={
-                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin text-teal-600"
-              }
-            />
-          </div>
-        }
-      >
+      <Suspense fallback={<Loading />}>
         {loaded && (
           <ThemeProvider attribute={"class"}>{children}</ThemeProvider>
         )}
