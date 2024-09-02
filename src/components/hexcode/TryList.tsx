@@ -1,9 +1,9 @@
 "use client";
-import { useHexStore } from "@/stores/hexStore";
 import TryListItem from "@/components/hexcode/TryListItem";
+import { useHexStore } from "@/components/StoreProvider";
 
 export default function TryList() {
-  const { tryList } = useHexStore();
+  const { tryList } = useHexStore((state) => state);
 
   return (
     <>

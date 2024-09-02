@@ -2,13 +2,13 @@
 
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { useTheme } from "next-themes";
-import { useHexStore } from "@/stores/hexStore";
 import React from "react";
 import styles from "@/styles/header.module.css";
+import { useHexStore } from "@/components/StoreProvider";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
-  const { questionNum } = useHexStore();
+  const { questionNum } = useHexStore((state) => state);
 
   return (
     <header className={"flex items-center justify-between py-5"}>

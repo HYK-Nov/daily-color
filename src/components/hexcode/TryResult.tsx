@@ -1,9 +1,8 @@
 "use client";
-import { useHexStore } from "@/stores/hexStore";
 import React, { useState } from "react";
 import { TbMaximize, TbMinimize } from "react-icons/tb";
-import Alert from "@/components/Alert";
 import { getRGBValues } from "@/utils/getRGBValues";
+import { useHexStore } from "@/components/StoreProvider";
 
 export default function TryResult() {
   const {
@@ -12,7 +11,7 @@ export default function TryResult() {
     isSuccess,
     successCount,
     totalCurrectCount,
-  } = useHexStore();
+  } = useHexStore((state) => state);
   const [isClosed, setIsClosed] = useState(false);
   const RGB = getRGBValues(questionAnswer);
 

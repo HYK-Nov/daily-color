@@ -3,6 +3,9 @@ import { Inter, Nanum_Gothic } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import PopupWrapper from "@/components/PopupWrapper";
+import { Suspense } from "react";
+import Loading from "@/app/(hexcode)/loading";
+import StoreProvider from "@/components/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const nanum = Nanum_Gothic({ subsets: ["latin"], weight: ["700", "400"] });
@@ -21,8 +24,10 @@ export default function RootLayout({
     <html lang="ko">
       <body className={nanum.className} suppressHydrationWarning>
         <Providers>
-          <PopupWrapper />
-          {children}
+          <StoreProvider>
+            <PopupWrapper />
+            {children}
+          </StoreProvider>
         </Providers>
       </body>
     </html>

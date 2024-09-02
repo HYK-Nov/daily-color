@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useHexStore } from "@/stores/hexStore";
 import styles from "@/styles/inputForm.module.css";
 import { getRGBValues } from "@/utils/getRGBValues";
+import { useHexStore } from "@/components/StoreProvider";
 
 export default function InputForm(this: any) {
   const [guess, setGuess] = useState("");
@@ -15,7 +15,7 @@ export default function InputForm(this: any) {
     setIsSuccess,
     setSuccessCount,
     setTotalCurrectCount,
-  } = useHexStore();
+  } = useHexStore((state) => state);
   const [red, green, blue] = [
     parseInt(questionAnswer.slice(0, 2), 16),
     parseInt(questionAnswer.slice(2, 4), 16),
