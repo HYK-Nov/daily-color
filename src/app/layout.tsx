@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Nanum_Gothic } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import PopupWrapper from "@/components/PopupWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 const nanum = Nanum_Gothic({ subsets: ["latin"], weight: ["700", "400"] });
@@ -19,7 +20,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={nanum.className} suppressHydrationWarning>
-        <Providers>{children}</Providers>
+        <Providers>
+          <PopupWrapper />
+          {children}
+        </Providers>
       </body>
     </html>
   );

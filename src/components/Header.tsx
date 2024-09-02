@@ -3,18 +3,20 @@
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { useTheme } from "next-themes";
 import { useHexStore } from "@/stores/hexStore";
+import React from "react";
+import styles from "@/styles/header.module.css";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
   const { questionNum } = useHexStore();
 
   return (
-    <header className={"flex items-center justify-between py-4"}>
+    <header className={"flex items-center justify-between py-5"}>
       <div
-        className={"flex cursor-pointer justify-center gap-2 text-xl font-bold"}
+        className={`flex cursor-pointer justify-center gap-2 text-xl font-bold ${styles.header} items-end`}
       >
-        <p>Daily Color</p>
-        <p>#{questionNum}</p>
+        <p className={"text-2xl"}>오늘의 색상</p>
+        <p className={"text-lg text-teal-500"}>#{questionNum}</p>
       </div>
 
       {/* 다크/라이트 모드 전환 */}

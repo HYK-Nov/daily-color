@@ -1,19 +1,19 @@
 "use client";
 import { TTryData } from "@/types/try";
-import {
-  TbCircleFilled,
-  TbTriangleFilled,
-  TbTriangleInvertedFilled,
-} from "react-icons/tb";
+import { getRGBValues } from "@/utils/getRGBValues";
+import StatusIcon from "@/components/hexcode/StatusIcon";
+import { copyToClipboard } from "@/utils/copyToClipboard";
+import React from "react";
+import { useToastStore } from "@/stores/toastStore";
 
 export default function TryListItem({ id, hex, red, green, blue }: TTryData) {
-  let tryRed, tryGreen, tryBlue;
+  const RGB = getRGBValues(hex);
+  const { pushToastList, popToastList } = useToastStore();
 
-  if (hex) {
-    tryRed = parseInt(hex.slice(0, 2), 16);
-    tryGreen = parseInt(hex.slice(2, 4), 16);
-    tryBlue = parseInt(hex.slice(4, 6), 16);
-  }
+  const handleClick = () => {
+    copyToClipboard(hex.toUpperCase());
+    pushToastList("복사했습니다!");
+  };
 
   return (
     <>
@@ -33,39 +33,21 @@ export default function TryListItem({ id, hex, red, green, blue }: TTryData) {
                   "grid w-full auto-rows-auto grid-cols-1 items-center sm:grid-cols-[30%_100%]"
                 }
               >
-                <p className={""}>#{hex.toUpperCase()}</p>
+                <p onClick={handleClick}>#{hex.toUpperCase()}</p>
                 <p className={"text-xs sm:text-base"}>
-                  ({tryRed}, {tryGreen}, {tryBlue})
+                  ({RGB.red}, {RGB.green}, {RGB.blue})
                 </p>
               </div>
             </div>
           </td>
           <td>
-            {red === "up" ? (
-              <TbTriangleFilled />
-            ) : red === "down" ? (
-              <TbTriangleInvertedFilled />
-            ) : (
-              <TbCircleFilled />
-            )}
+            <StatusIcon status={red} />
           </td>
           <td>
-            {green === "up" ? (
-              <TbTriangleFilled />
-            ) : green === "down" ? (
-              <TbTriangleInvertedFilled />
-            ) : (
-              <TbCircleFilled />
-            )}
+            <StatusIcon status={green} />
           </td>
           <td>
-            {blue === "up" ? (
-              <TbTriangleFilled />
-            ) : blue === "down" ? (
-              <TbTriangleInvertedFilled />
-            ) : (
-              <TbCircleFilled />
-            )}
+            <StatusIcon status={blue} />
           </td>
         </tr>
       )}

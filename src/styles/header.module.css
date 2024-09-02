@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'WAGURI';
+    src: url('/fonts/WAGURI.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header {
+    font-family: 'WAGURI', serif;
+    font-weight: lighter;
+}

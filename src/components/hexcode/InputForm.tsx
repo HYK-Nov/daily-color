@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useHexStore } from "@/stores/hexStore";
 import styles from "@/styles/inputForm.module.css";
+import { getRGBValues } from "@/utils/getRGBValues";
 
-export default function InputForm() {
+export default function InputForm(this: any) {
   const [guess, setGuess] = useState("");
   const {
     isSuccess,
@@ -36,37 +37,38 @@ export default function InputForm() {
   };
 
   const onSubmitForm = async () => {
-    tryRed = parseInt(guess.slice(0, 2), 16);
-    tryGreen = parseInt(guess.slice(2, 4), 16);
-    tryBlue = parseInt(guess.slice(4, 6), 16);
+    if (guess.length === 6) {
+      const tryRGB = getRGBValues(guess);
 
-    setTryList({
-      id: tryList.length + 1,
-      hex: guess,
-      red: red > tryRed ? "up" : red < tryRed ? "down" : "equal",
-      green: green > tryGreen ? "up" : green < tryGreen ? "down" : "equal",
-      blue: blue > tryBlue ? "up" : blue < tryBlue ? "down" : "equal",
-    });
-    setGuess("");
+      setTryList({
+        id: tryList.length + 1,
+        hex: guess.toUpperCase(),
+        red: red > tryRGB.red ? "up" : red < tryRGB.red ? "down" : "equal",
+        green:
+          green > tryRGB.green ? "up" : green < tryRGB.green ? "down" : "equal",
+        blue: blue > tryRGB.blue ? "up" : blue < tryRGB.blue ? "down" : "equal",
+      });
+      setGuess("");
 
-    if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
-      setIsSuccess(true);
-      setSuccessCount(tryList.length + 1);
+      if (!isSuccess && new RegExp(questionAnswer, "gi").test(guess)) {
+        setIsSuccess(true);
+        setSuccessCount(tryList.length + 1);
 
-      window.localStorage.setItem(
-        "last_record",
-        JSON.stringify({
-          last_question_number: questionNum,
-          success_count: tryList.length + 1,
-        }),
-      );
-
-      try {
-        await updateTotalCurrectCount().then((res) =>
-          setTotalCurrectCount(res),
+        window.localStorage.setItem(
+          "last_record",
+          JSON.stringify({
+            last_question_number: questionNum,
+            success_count: tryList.length + 1,
+          }),
         );
-      } catch (error) {
-        console.error(error);
+
+        try {
+          await updateTotalCurrectCount().then((res) =>
+            setTotalCurrectCount(res),
+          );
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
   };
@@ -88,11 +90,9 @@ export default function InputForm() {
         <input
           className={"w-full bg-transparent bg-none outline-none"}
           name={"hex"}
-          minLength={6}
           maxLength={6}
           value={guess}
           onChange={handleInputChange}
-          required={true}
         />
       </div>
       <input
