@@ -78,8 +78,16 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <>
       <Suspense
         fallback={
-          <div className={"bg-white/10 dark:bg-slate-900/10"}>
-            <TbLoader2 className={"animate-spin text-teal-600"} />
+          <div
+            className={
+              "relative h-full w-full bg-white/10 dark:bg-slate-900/10"
+            }
+          >
+            <TbLoader2
+              className={
+                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin text-teal-600"
+              }
+            />
           </div>
         }
       >
