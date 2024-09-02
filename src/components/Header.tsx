@@ -5,15 +5,19 @@ import { useTheme } from "next-themes";
 import React from "react";
 import styles from "@/styles/header.module.css";
 import { useHexStore } from "@/components/StoreProvider";
+import { cn } from "@/utils/cn";
 
-export default function Header() {
+function Header() {
   const { theme, setTheme } = useTheme();
   const { questionNum } = useHexStore((state) => state);
 
   return (
     <header className={"flex items-center justify-between py-5"}>
       <div
-        className={`flex cursor-pointer justify-center gap-2 text-xl font-bold ${styles.header} items-end`}
+        className={cn(
+          "flex cursor-pointer items-end justify-center gap-2 text-xl font-bold",
+          styles.header,
+        )}
       >
         <p className={"text-2xl"}>오늘의 색상</p>
         <p className={"text-lg text-teal-500"}>#{questionNum}</p>
@@ -32,3 +36,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default React.memo(Header);

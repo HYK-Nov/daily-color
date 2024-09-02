@@ -2,14 +2,21 @@
 import { TbCircleCheckFilled, TbX } from "react-icons/tb";
 import { useToastStore } from "@/stores/toastStore";
 import { useEffect, useState } from "react";
+import { cn } from "@/utils/cn";
 
 type TToast = {
   children: React.ReactNode;
   id: string;
+  type?: "success" | "warning" | "info";
 } & React.ComponentProps<"div">;
 
-export default function Toast({ children, id, ...rest }: TToast) {
-  const successStyle = "text-green-700 border-green-600";
+export default function Toast({
+  children,
+  id,
+  type = "success",
+  className,
+  ...rest
+}: TToast) {
   const { deleteToastList } = useToastStore();
   const [loaded, setLoaded] = useState(true);
 
@@ -25,10 +32,15 @@ export default function Toast({ children, id, ...rest }: TToast) {
 
     return () => clearTimeout(timer);
   }, []);
-
   return (
     <div
-      className={`flex items-center gap-3 rounded-lg border bg-green-100 p-3 ${successStyle} w-fit -translate-x-1/2 ${loaded ? "animate-fadeIn" : "animate-fadeOut"}`}
+      className={cn(
+        "flex w-fit items-center gap-3 rounded-lg border bg-green-100 p-3",
+        { "animate-fadeIn": loaded },
+        { "animate-fadeOut": !loaded },
+        { "border-green-600 text-green-700": type === "success" },
+        className,
+      )}
       {...rest}
     >
       <TbCircleCheckFilled className={"text-lg"} />
