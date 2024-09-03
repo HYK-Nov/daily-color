@@ -8,11 +8,11 @@
 
 ## 즐기는 방법
 
-![2024-09](https://github.com/user-attachments/assets/814c9d0b-61d2-43b2-9952-2a7c4037894e)
+![gif](https://github.com/user-attachments/assets/814c9d0b-61d2-43b2-9952-2a7c4037894e)
 
 ### Red, Green, Blue 값 비교
 
-![image](https://github.com/user-attachments/assets/b0b64316-a950-4867-8ee6-a97a468a6715)
+![image](https://github.com/user-attachments/assets/77a4f9c2-fa56-43d7-a6b2-1e415e63bfea)
 
 오늘의 답과 제시한 답의 **R, G, B(0 ~ 255)** 를 비교하여 각각의 아이콘으로 정답에 얼마나 근접했는지 알려줍니다.
 
