@@ -8,11 +8,11 @@
 
 ## 즐기는 방법
 
-![img.gif](https://velog.velcdn.com/images/yundori97/post/965377e7-9c8c-48ae-84e6-c8793ccb8c36/image.gif)
+![2024-09](https://github.com/user-attachments/assets/814c9d0b-61d2-43b2-9952-2a7c4037894e)
 
 ### Red, Green, Blue 값 비교
 
-![image](https://github.com/user-attachments/assets/9a8aaae7-f7b6-41ea-b421-f76531db87f7)
+![image](https://github.com/user-attachments/assets/b0b64316-a950-4867-8ee6-a97a468a6715)
 
 오늘의 답과 제시한 답의 **R, G, B(0 ~ 255)** 를 비교하여 각각의 아이콘으로 정답에 얼마나 근접했는지 알려줍니다.
 
@@ -22,9 +22,15 @@
 
 ### Color Picker
 
-![image](https://github.com/user-attachments/assets/a73fd589-d1f4-4638-ae90-d3ae1b514cfd)
+![image](https://github.com/user-attachments/assets/78118301-789c-4398-beb4-bbbc67b1b117)
 
 컬러 피커를 통해 hex 코드가 익숙하지 않은 분들도 시도할 수 있습니다.
+
+### 결과
+
+![image](https://github.com/user-attachments/assets/037d844f-545a-444a-8d34-83734ac8c1dc)
+
+얼마나 많은 인원이 오늘의 답을 맞추었는지 알 수 있습니다.
 
 ## 기술 스택
 
