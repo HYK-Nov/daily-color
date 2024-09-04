@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Loading from "@/app/(hexcode)/loading";
 
 type props = { children: ReactNode };
-export const revalidate = 60;
 
 export default function HexCodeLayout({ children }: props) {
   return (

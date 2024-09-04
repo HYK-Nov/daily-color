@@ -8,7 +8,7 @@
 
 ## 즐기는 방법
 
-![gif](https://github.com/user-attachments/assets/814c9d0b-61d2-43b2-9952-2a7c4037894e)
+![gif](https://github.com/user-attachments/assets/8de5835e-7a18-49f1-97fd-100d1488e152)
 
 ### Red, Green, Blue 값 비교
 

@@ -17,6 +17,7 @@ const getTotalCurrectCount = async (curNum: number) => {
     {
       method: "POST",
       body: JSON.stringify({ question_number: curNum }),
+      next: { revalidate: 60 },
     },
   )
     .then((res) => res.json())
