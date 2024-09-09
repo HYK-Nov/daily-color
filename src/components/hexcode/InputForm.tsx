@@ -32,7 +32,6 @@ export default function InputForm(this: any) {
     return await fetch("/api/hex-code", {
       method: "POST",
       body: JSON.stringify({ today_id: questionNum }),
-      cache: "no-cache",
     }).then((res) => res.json());
   };
 

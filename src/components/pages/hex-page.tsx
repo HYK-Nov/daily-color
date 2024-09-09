@@ -15,7 +15,6 @@ const getTotalCurrectCount = async (curNum: number) => {
   return await fetch("/api/hex-code/total-correct", {
     method: "POST",
     body: JSON.stringify({ question_number: curNum }),
-    cache: "no-cache",
   })
     .then((res) => res.json())
     .then((res) => res.total_correct_count);

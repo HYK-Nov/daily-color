@@ -1,3 +1,4 @@
+export const revalidate = 60;
 import { encrypt } from "@/utils/encryptService";
 import { createClient } from "@/utils/supabase/client";
 import { NextRequest, NextResponse } from "next/server";
