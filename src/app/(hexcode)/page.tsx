@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import HexPage from "@/components/pages/hex-page";
 
 const getHexCode = async () => {
